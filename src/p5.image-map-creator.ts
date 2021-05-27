@@ -16,7 +16,7 @@ import "../lib/contextmenu/contextmenu.css";
 //@ts-ignore strange way to import but it's working
 import p5 = require("p5");
 
-export type Tool = "polygon" | "rectangle" | "circle" | "select" | "delete" | "test";
+export type Tool = "Polygon" | "Rectangle" | "Circle" | "Select" | "Delete" | "Test an area";
 export type Image = {
 	data: p5.Image|null,
 	file: p5.File|null,
@@ -43,11 +43,11 @@ export class imageMapCreator {
 	protected menu = {
 		SetUrl: {
 			onSelect: (target: Element, key: any, item: HTMLElement, area: Area) => { this.setAreaUrl(area); },
-			label: "Set url",
+			label: "Select which lot ID the area will be linked to",
 		},
 		SetTitle: {
 			onSelect: (target: Element, key: any, item: HTMLElement, area: Area) => { this.setAreaTitle(area); },
-			label: "Set title",
+			label: "Area title (optional)",
 		},
 		Delete: (target: Element, key: any, item: HTMLElement, area: Area) => { this.deleteArea(area); },
 		MoveFront: {
@@ -87,8 +87,8 @@ export class imageMapCreator {
 		if (!element) throw new Error('HTMLElement not found');
 		this.width = width;
 		this.height = height;
-		this.tool = "polygon";
-		this.drawingTools = ["rectangle", "circle", "polygon"];
+		this.tool = "Polygon";
+		this.drawingTools = ["Rectangle", "Circle", "Polygon"];
 		this.settings;
 		this.tempArea = new AreaEmpty();
 		this.selection = new Selection();
@@ -142,16 +142,16 @@ export class imageMapCreator {
 		let canvas = this.p5.createCanvas(this.width, this.height);
 		canvas.drop(this.handeFile.bind(this)).dragLeave(this.onLeave.bind(this)).dragOver(this.onOver.bind(this));
 		//@ts-ignore p5 types does not specify the canvas attribute
-		this.settings = QuickSettings.create(this.p5.width + 5, 0, "Image-map Creator", this.p5.canvas.parentElement)
+		this.settings = QuickSettings.create(this.p5.width + 5, 0, "Interactive Map Generator", this.p5.canvas.parentElement)
 			.setDraggable(false)
 			.addText("Map Name", "", (v: string) => { this.map.setName(v) })
-			.addDropDown("Tool", ["polygon", "rectangle", "circle", "select", "delete", "test"], (v: ToolLabel) => { this.setTool(v.value) })
-			.addBoolean("Default Area", this.map.hasDefaultArea, (v: boolean) => { this.setDefaultArea(v) })
+			.addDropDown("Tool", ["Polygon", "Rectangle", "Circle", "Select", "Delete", "Test an area"], (v: ToolLabel) => { this.setTool(v.value) })
+			// .addBoolean("Default Area", this.map.hasDefaultArea, (v: boolean) => { this.setDefaultArea(v) })
 			.addButton("Undo", this.undoManager.undo)
 			.addButton("Redo", this.undoManager.redo)
 			.addButton("Clear", this.clearAreas.bind(this))
-			.addButton("Generate Html", () => { this.settings.setValue("Output", this.map.toHtml()) })
-			.addButton("Generate Svg", () => { this.settings.setValue("Output", this.map.toSvg()) })
+			.addButton("Generate", () => { this.settings.setValue("Output", this.map.toHtml()) })
+			// .addButton("Generate Svg", () => { this.settings.setValue("Output", this.map.toSvg()) })
 			.addTextArea("Output")
 			.addButton("Save", this.save.bind(this));
 		//@ts-ignore Fix for oncontextmenu
@@ -183,11 +183,11 @@ export class imageMapCreator {
 			let coord = this.drawingCoord();
 			if (this.p5.mouseButton == this.p5.LEFT && !ContextMenu.isOpen()) {
 				switch (this.tool) {
-					case "circle":
-					case "rectangle":
+					case "Circle":
+					case "Rectangle":
 						this.setTempArea(coord);
 						break;
-					case "polygon":
+					case "Polygon":
 						let areaPoly = this.tempArea as AreaPoly;
 						if (areaPoly.isEmpty()) {
 							this.setTempArea(coord);
@@ -200,7 +200,7 @@ export class imageMapCreator {
 							this.tempArea.addCoord(this.mCoord());
 						}
 						break;
-					case "select":
+					case "Select":
 						if (this.hoveredPoint !== null) {
 							this.selection.addPoint(this.hoveredPoint);
 							this.selection.registerArea(this.hoveredArea!);
@@ -219,7 +219,7 @@ export class imageMapCreator {
 		if (this.mouseIsHoverSketch() && !ContextMenu.isOpen()) {
 			if (this.p5.mouseButton == this.p5.LEFT) {
 				switch (this.tool) {
-					case "select":
+					case "Select":
 						this.selection.setPosition(this.drawingCoord());
 						break;
 				}
@@ -232,13 +232,13 @@ export class imageMapCreator {
 
 	private mouseReleased(e: MouseEvent): void {
 		switch (this.tool) {
-			case "rectangle":
-			case "circle":
+			case "Rectangle":
+			case "Circle":
 				if (this.tempArea.isValidShape())
 					this.createArea(this.tempArea);
 				this.tempArea = new AreaEmpty();
 				break;
-			case "select":
+			case "Select":
 				let selection = this.selection;
 				if (!selection.isEmpty()) {
 					let move = this.selection.distToOrigin();
@@ -280,7 +280,7 @@ export class imageMapCreator {
 			}
 			return false;
 		} else if (
-			this.tool == "polygon" &&
+			this.tool == "Polygon" &&
 			//@ts-ignore p5 types didn't specify the ESCAPE keycode
 			e.keyCode == this.p5.ESCAPE
 		) {
@@ -341,7 +341,7 @@ export class imageMapCreator {
 			if (this.selection.containsArea(a)) {
 				return false;
 			}
-			if (this.tool != "test") {
+			if (this.tool != "Test an area") {
 				let point = a.isOverPoint(this.mCoord(), this.tolerance / this.view.scale)
 				if (point && !this.selection.containsPoint(point)) {
 					this.hoveredPoint = point;
@@ -371,10 +371,10 @@ export class imageMapCreator {
 					// return false; // doesn't work as expected
 				} else if (this.p5.mouseButton == this.p5.LEFT && !ContextMenu.isOpen()) {
 					switch (this.tool) {
-						case "test":
-							openWindow(this.hoveredArea.getHref());
+						case "Test an area":
+							alert(`Linked area: ${this.hoveredArea.getHref()}`);
 							break;
-						case "delete":
+						case "Delete":
 							this.deleteArea(this.hoveredArea);
 							break;
 					}
@@ -474,7 +474,7 @@ export class imageMapCreator {
 	setCursor(): void {
 		if (this.drawingTools.includes(this.tool)) {
 			switch (this.tool) {
-				case "polygon":
+				case "Polygon":
 					let areaPoly = this.tempArea as AreaPoly
 					if (!areaPoly.isEmpty() && areaPoly.isClosable(this.mCoord(), 5 / this.view.scale)) {
 						this.p5.cursor(this.p5.HAND);
@@ -487,11 +487,11 @@ export class imageMapCreator {
 			this.p5.cursor(this.p5.ARROW);
 			if (this.hoveredArea) {
 				switch (this.tool) {
-					case "test":
-					case "delete":
+					case "Test an area":
+					case "Delete":
 						this.p5.cursor(this.p5.HAND);
 						break;
-					case "select":
+					case "Select":
 						if (!this.hoveredPoint) {
 							this.p5.cursor(this.p5.MOVE);
 						}
@@ -503,8 +503,8 @@ export class imageMapCreator {
 
 	setOutput(): void {
 		switch (this.tool) {
-			case "test":
-			case "select":
+			case "Test an area":
+			case "Select":
 				if (this.mouseIsHoverSketch()) {
 					let href = this.hoveredArea ? this.hoveredArea.getHrefVerbose() : "none";
 					this.settings.setValue("Output", href);
@@ -520,7 +520,7 @@ export class imageMapCreator {
 			this.p5.fill(0);
 			this.p5.textAlign(this.p5.CENTER, this.p5.CENTER);
 			this.p5.textSize(15);
-			let text = 'Drag and drop an image and/or a .map.json save file here';
+			let text = 'Drag and drop the map image here';
 			this.p5.text(text, this.p5.width / 2, this.p5.height / 2);
 		}
 	}
@@ -529,7 +529,7 @@ export class imageMapCreator {
 	 * Set the title of the canvas from an area
 	 */
 	setTitle(area: Area|null): void {
-		if (this.tool == "test" && area && area.getTitle()) {
+		if (this.tool == "Test an area" && area && area.getTitle()) {
 			//@ts-ignore p5 types does not specify the canvas attribute
 			this.p5.canvas.setAttribute("title", area.getTitle());
 		} else {
@@ -540,10 +540,10 @@ export class imageMapCreator {
 
 	setAreaStyle(area: Area): void {
 		let color = this.p5.color(255, 255, 255, 178);
-		if (this.tool == "test") {
+		if (this.tool == "Test an area") {
 			color = this.p5.color(255, 0);
 		}
-		if (((this.tool == "delete" || this.tool == "select") &&
+		if (((this.tool == "Delete" || this.tool == "Select") &&
 			this.mouseIsHoverSketch() &&
 			area == this.hoveredArea) ||
 			this.selection.containsArea(area)
@@ -552,7 +552,7 @@ export class imageMapCreator {
 		}
 		this.p5.fill(color);
 		this.p5.strokeWeight(1 / this.view.scale);
-		if (this.tool == "test") {
+		if (this.tool == "Test an area") {
 			this.p5.noStroke();
 		} else {
 			this.p5.stroke(0);
@@ -562,13 +562,13 @@ export class imageMapCreator {
 	setTempArea(coord: Coord): void {
 		let coords = [coord];
 		switch (this.tool) {
-			case "rectangle":
+			case "Rectangle":
 				this.tempArea = new AreaRect(coords);
 				break;
-			case "circle":
+			case "Circle":
 				this.tempArea = new AreaCircle(coords);
 				break;
-			case "polygon":
+			case "Polygon":
 				this.tempArea = new AreaPoly(coords);
 				this.tempArea.addCoord(coord);
 				break;
@@ -650,7 +650,7 @@ export class imageMapCreator {
 	 */
 	setAreaUrl(area: Area): void {
 		let href = area.getHref();
-		let input = prompt("Enter the pointing url of this area", href ? href : "http://");
+		let input = prompt("Type a lot ID to link it to this area", href ? href : "");
 		if (input) {
 			area.setHref(input);
 			this.undoManager.add({

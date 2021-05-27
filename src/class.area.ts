@@ -182,8 +182,8 @@ export abstract class Area {
 	toHtml(scale: number = 1): string {
 		let htmlCoords = this.htmlCoords(0, scale);
 		htmlCoords = htmlCoords ? `coords="${htmlCoords}"` : "";
-		const href = this.href ? `href="${this.href}"` : "nohref";
-		const title = this.title ? `title="${this.title}"` : "";
+		const href = this.href ? `href="${this.href}"` : "nolot";
+		const title = this.title ? `title="${this.title}"` : "A lot";
 		return `<area shape="${this.shape}" ${htmlCoords} ${href} alt="${this.href}" ${title} />`;
 	}
 
