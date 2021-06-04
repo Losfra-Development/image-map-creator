@@ -142,7 +142,7 @@ export class imageMapCreator {
 		let canvas = this.p5.createCanvas(this.width, this.height);
 		canvas.drop(this.handeFile.bind(this)).dragLeave(this.onLeave.bind(this)).dragOver(this.onOver.bind(this));
 		//@ts-ignore p5 types does not specify the canvas attribute
-		this.settings = QuickSettings.create(this.p5.width + 5, 0, "Interactive Map Generator", this.p5.canvas.parentElement)
+		this.settings = QuickSettings.create(this.p5.width + 5, 250, "Interactive Map Generator", this.p5.canvas.parentElement)
 			.setDraggable(false)
 			.addText("Map Name", "", (v: string) => { this.map.setName(v) })
 			.addDropDown("Tool", ["Polygon", "Rectangle", "Circle", "Select", "Delete", "Test an area"], (v: ToolLabel) => { this.setTool(v.value) })
