@@ -1823,6 +1823,7 @@
                     }))
                 }, t.prototype.testFunction = function () {
                     console.log('Hola mundo')
+                    console.log(this.map);
                 }, t.prototype.save = function () {
                     var t = new Blob([this.exportMap()], {
                         encoding: "UTF-8",
