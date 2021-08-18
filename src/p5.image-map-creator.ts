@@ -150,7 +150,7 @@ export class imageMapCreator {
 			.addButton("Undo", this.undoManager.undo)
 			.addButton("Redo", this.undoManager.redo)
 			.addButton("Clear", this.clearAreas.bind(this))
-			.addButton("Generate", () => { this.settings.setValue("Output", this.map.toHtml()) })
+			.addButton("Generate", () => { this.settings.setValue("Output", 'Hola mundo') })
 			// .addButton("Generate Svg", () => { this.settings.setValue("Output", this.map.toSvg()) })
 			.addTextArea("Output")
 			.addButton("Save", this.save.bind(this));
