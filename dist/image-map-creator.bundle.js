@@ -1823,7 +1823,7 @@
                     }))
                 }, t.prototype.testFunction = function () {
                     console.log('Hola mundo')
-                    console.log(this.map.toHtml);
+                    console.log(this.map.toHtml());
                 }, t.prototype.save = function () {
                     var t = new Blob([this.exportMap()], {
                         encoding: "UTF-8",
