@@ -150,7 +150,7 @@ export class imageMapCreator {
 			.addButton("Undo", this.undoManager.undo)
 			.addButton("Redo", this.undoManager.redo)
 			.addButton("Clear", this.clearAreas.bind(this))
-			.addButton("Generate", () => { this.settings.setValue("Output", this.map.toHtml()) })
+			.addButton("Generate Output", () => { this.settings.setValue("Output", this.map.toHtml()) })
 			// .addButton("Generate Svg", () => { this.settings.setValue("Output", this.map.toSvg()) })
 			.addTextArea("Output")
 			.addButton("Save", this.save.bind(this));
@@ -160,6 +160,7 @@ export class imageMapCreator {
 		this.p5.canvas.addEventListener("mousedown", (e) => { e.preventDefault(); });
 		//@ts-ignore Select all onclick on the Output field
 		document.getElementById("Output").setAttribute("onFocus", "this.select();");
+		document.getElementById("Output").textContent = 'Hola';
 	}
 
 	private draw(): void {
