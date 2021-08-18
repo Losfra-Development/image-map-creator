@@ -1821,6 +1821,8 @@
                     return JSON.stringify(new A(i.a, this.map), (function (t, e) {
                         return e instanceof f && !(this instanceof A) ? e.getName() : e
                     }))
+                }, t.prototype.testFunction = function () {
+                    console.log('Hola mundo')
                 }, t.prototype.save = function () {
                     var t = new Blob([this.exportMap()], {
                         encoding: "UTF-8",

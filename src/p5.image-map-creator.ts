@@ -150,10 +150,10 @@ export class imageMapCreator {
 			.addButton("Undo", this.undoManager.undo)
 			.addButton("Redo", this.undoManager.redo)
 			.addButton("Clear", this.clearAreas.bind(this))
-			.addButton("Generate", () => { this.settings.setValue("Output", 'Hola mundo') })
+			.addButton("Generate", () => { this.settings.setValue("Output", this.map.toHtml()) })
 			// .addButton("Generate Svg", () => { this.settings.setValue("Output", this.map.toSvg()) })
 			.addTextArea("Output")
-			.addButton("Save", this.save.bind(this));
+			.addButton("Save", this.testFunction.bind(this));
 		//@ts-ignore Fix for oncontextmenu
 		this.p5.canvas.addEventListener("contextmenu", (e) => { e.preventDefault(); });
 		//@ts-ignore Fix for middle click mouse down triggers scroll on windows
@@ -589,6 +589,10 @@ export class imageMapCreator {
 			}
 			return value;
 		});
+	}
+
+	testFunction(): void {
+		console.log('Hola mundo');
 	}
 
 	save(): void {
