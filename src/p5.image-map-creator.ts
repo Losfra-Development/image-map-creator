@@ -593,7 +593,7 @@ export class imageMapCreator {
 
 	testFunction(): void {
 		const urlParams = new URLSearchParams(window.location.search);
-		const myParam = urlParams.get('myParam');
+		const myParam = urlParams.get('community_id');
 		console.log('Hola mundo');
 		console.log(this.map.toHtml());
 		console.log(urlParams)
