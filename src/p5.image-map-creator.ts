@@ -592,8 +592,12 @@ export class imageMapCreator {
 	}
 
 	testFunction(): void {
+		const urlParams = new URLSearchParams(window.location.search);
+		const myParam = urlParams.get('myParam');
 		console.log('Hola mundo');
 		console.log(this.map.toHtml());
+		console.log(urlParams)
+		console.log(myParam)
 	}
 
 	save(): void {

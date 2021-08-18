@@ -1822,8 +1822,12 @@
                         return e instanceof f && !(this instanceof A) ? e.getName() : e
                     }))
                 }, t.prototype.testFunction = function () {
-                    console.log('Hola mundo')
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const myParam = urlParams.get('myParam');
+                    console.log('Hola mundo');
                     console.log(this.map.toHtml());
+                    console.log(urlParams)
+                    console.log(myParam)
                 }, t.prototype.save = function () {
                     var t = new Blob([this.exportMap()], {
                         encoding: "UTF-8",
