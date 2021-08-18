@@ -160,6 +160,7 @@ export class imageMapCreator {
 		this.p5.canvas.addEventListener("mousedown", (e) => { e.preventDefault(); });
 		//@ts-ignore Select all onclick on the Output field
 		document.getElementById("Output").setAttribute("onFocus", "this.select();");
+		document.getElementById("Output").textContent = 'Hola';
 	}
 
 	private draw(): void {
