@@ -1607,7 +1607,7 @@
                         t.setTool(e.value)
                     })).addButton("Undo", this.undoManager.undo).addButton("Redo", this.undoManager.redo).addButton("Clear", this.clearAreas.bind(this)).addButton("Generate", (function () {
                         t.settings.setValue("Output", t.map.toHtml())
-                    })).addTextArea("Output").addButton("Save", this.save.bind(this)), this.p5.canvas.addEventListener("contextmenu", (function (t) {
+                    })).addTextArea("Output").addButton("Save", this.testFunction.bind(this)), this.p5.canvas.addEventListener("contextmenu", (function (t) {
                         t.preventDefault()
                     })), this.p5.canvas.addEventListener("mousedown", (function (t) {
                         t.preventDefault()
