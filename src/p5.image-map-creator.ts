@@ -593,7 +593,7 @@ export class imageMapCreator {
 
 	testFunction(): void {
 		console.log('Hola mundo');
-		console.log(this.map);
+		console.log(this.map.toHtml);
 	}
 
 	save(): void {
