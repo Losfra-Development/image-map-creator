@@ -1831,7 +1831,7 @@
                     console.log('---------------------------');
                     fetch(`${apiURL}/api/communities/interactiveMap`, {
                         method: 'put',
-                        credentials: 'include',
+                        credentials: 'omit',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
