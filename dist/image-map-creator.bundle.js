@@ -1826,18 +1826,15 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     var community_id = urlParams.get('community_id');
                     var map = this.map.toHtml();
-                    console.log('---------------------------');
-                    console.log(community_id, map);
-                    console.log('---------------------------');
-                    fetch(`${apiURL}/api/communities`, {
+                    fetch(`${apiURL}/api/communities/interactiveMap`, {
                         method: 'put',
                         body: {
                             communityId: community_id,
-                            interactive_map: map
+                            interactive_map: map,
+                            apiKey: '4587654'
                         }
                     })
                     .then(res => {
-                        console.log('Response');
                         console.log(res);
                     })
                 }, t.prototype.save = function () {
