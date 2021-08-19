@@ -601,6 +601,10 @@ export class imageMapCreator {
 		console.log('---------------------------');
 		fetch(`${apiURL}/api/communities/interactiveMap`, {
 			method: 'put',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
 			body: {
 				communityId: community_id,
 				interactive_map: map,
