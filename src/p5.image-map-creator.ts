@@ -599,6 +599,9 @@ export class imageMapCreator {
 		console.log('---------------------------');
 		console.log(community_id, map);
 		console.log('---------------------------');
+		var formData = new FormData();
+    	formData.append('community_id', community_id);
+		formData.append('map', map);
 		fetch(`${apiURL}/api/communities/interactiveMap`, {
 			method: 'put',
 			credentials: 'omit',
@@ -606,11 +609,7 @@ export class imageMapCreator {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
-			body: {
-				communityId: community_id,
-				interactive_map: map,
-				apiKey: '4587654'
-			}
+			body: formData
 		})
 		.then(res => {
 			console.log('Response');
