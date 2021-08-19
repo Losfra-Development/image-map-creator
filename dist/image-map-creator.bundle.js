@@ -1822,12 +1822,20 @@
                         return e instanceof f && !(this instanceof A) ? e.getName() : e
                     }))
                 }, t.prototype.testFunction = function () {
+                    const apiURL = 'http://localhost:3000';
                     const urlParams = new URLSearchParams(window.location.search);
-                    const myParam = urlParams.get('community_id');
-                    console.log('Hola mundo');
-                    console.log(this.map.toHtml());
-                    console.log(urlParams)
-                    console.log(myParam)
+                    var community_id = urlParams.get('community_id');
+                    var map = this.map.toHtml();
+                    fetch(`${apiURL}/api/communities`, {
+                        method: 'put',
+                        body: {
+                            communityId: community_id,
+                            interactive_map: map
+                        }
+                    })
+                    .then(res => {
+                        console.log(res);
+                    })
                 }, t.prototype.save = function () {
                     var t = new Blob([this.exportMap()], {
                         encoding: "UTF-8",
