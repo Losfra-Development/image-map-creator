@@ -601,6 +601,7 @@ export class imageMapCreator {
 		console.log('---------------------------');
 		fetch(`${apiURL}/api/communities/interactiveMap`, {
 			method: 'put',
+			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
