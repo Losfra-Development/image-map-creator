@@ -1835,10 +1835,6 @@
                     fetch(`${apiURL}/api/communities/interactiveMap`, {
                         method: 'put',
                         credentials: 'omit',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
                         body: formData
                     })
                     .then(res => {

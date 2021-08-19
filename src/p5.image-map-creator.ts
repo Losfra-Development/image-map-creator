@@ -604,11 +604,7 @@ export class imageMapCreator {
 		formData.append('map', map);
 		fetch(`${apiURL}/api/communities/interactiveMap`, {
 			method: 'put',
-			credentials: 'omit',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
+			credentials: 'omit',			
 			body: formData
 		})
 		.then(res => {
