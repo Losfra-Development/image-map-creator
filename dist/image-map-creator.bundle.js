@@ -1832,6 +1832,7 @@
                     var formData = new FormData();
                     formData.append('community_id', community_id);
                     formData.append('map', map);
+                    formData.append('apiKey', '123456');
                     fetch(`${apiURL}/api/communities/interactiveMap`, {
                         method: 'put',
                         credentials: 'omit',
