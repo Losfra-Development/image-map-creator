@@ -1841,6 +1841,7 @@
                     .then(res => {
                         console.log('Response');
                         console.log(res);
+                        alert('Map updated');
                     })
                 }, t.prototype.save = function () {
                     var t = new Blob([this.exportMap()], {

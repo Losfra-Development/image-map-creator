@@ -611,6 +611,7 @@ export class imageMapCreator {
 		.then(res => {
 			console.log('Response');
 			console.log(res);
+			alert('Map updated');
 		})
 	}
 
