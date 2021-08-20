@@ -1827,7 +1827,7 @@
                     var community_id = urlParams.get('community_id');
                     var map = this.map.toHtml();
                     console.log('---------------------------');
-                    console.log(community_id, map);
+                    console.log(community_id, map, this.map.getName());
                     console.log('---------------------------');
                     var formData = new FormData();
                     formData.append('community_id', community_id);
