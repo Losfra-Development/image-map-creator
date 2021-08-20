@@ -596,16 +596,18 @@ export class imageMapCreator {
 		const urlParams = new URLSearchParams(window.location.search);
 		var community_id = urlParams.get('community_id');
 		var map = this.map.toHtml();
+		var map_name = this.map.getName();
 		console.log('---------------------------');
 		console.log(community_id, map, this.map.getName());
 		console.log('---------------------------');
 		var formData = new FormData();
-    	formData.append('community_id', community_id);
+		formData.append('community_id', community_id);
 		formData.append('map', map);
+		formData.append('map_name', map_name);
 		formData.append('apiKey', '123456');
 		fetch(`${apiURL}/api/communities/interactiveMap`, {
 			method: 'put',
-			credentials: 'omit',			
+			credentials: 'omit',
 			body: formData
 		})
 		.then(res => {
